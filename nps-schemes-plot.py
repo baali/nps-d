@@ -1,7 +1,3 @@
-from bokeh.plotting import figure
-from bokeh.resources import CDN
-from bokeh.embed import file_html
-
 import pandas as pd
 from bokeh.sampledata.iris import flowers
 
@@ -26,5 +22,5 @@ p.yaxis.axis_label = 'Petal Width'
 p.circle('petal_length', 'petal_width', color='colors',
          fill_alpha=0.2, size=10, source=ColumnDataSource(flowers))
 
-output_file("docs/index.html")
+output_file("docs/index.html", title="Iris Morphology")
 save(p)
