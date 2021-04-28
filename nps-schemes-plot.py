@@ -5,7 +5,7 @@ from bokeh.embed import file_html
 import pandas as pd
 from bokeh.sampledata.iris import flowers
 
-from bokeh.plotting import figure, show, output_file
+from bokeh.plotting import figure, output_file, save
 from bokeh.models import ColumnDataSource, HoverTool
 
 colormap = {'setosa': 'red', 'versicolor': 'green', 'virginica': 'blue'}
@@ -26,6 +26,5 @@ p.yaxis.axis_label = 'Petal Width'
 p.circle('petal_length', 'petal_width', color='colors',
          fill_alpha=0.2, size=10, source=ColumnDataSource(flowers))
 
-html = file_html(p, CDN, "my plot")
-with open('docs/index.html', 'w') as f:
-    f.write(html)
+output_file("docs/index.html")
+save(p)
