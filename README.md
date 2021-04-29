@@ -10,6 +10,8 @@
     7.  Central Government
     8.  State Government
 
+The dashboard would be available here: https://baali.github.io/nps-d/index.html
+
 ### Main sites:
 
  [NPS Portal](https://enps.nsdl.com/eNPS/NationalPensionSystem.html)
