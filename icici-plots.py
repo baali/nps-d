@@ -1,7 +1,6 @@
 import requests
 import pandas as pd
 from datetime import date
-from bokeh.sampledata.iris import flowers
 
 from bokeh.plotting import figure, output_file, save
 from bokeh.models import ColumnDataSource, HoverTool
@@ -23,10 +22,10 @@ icici_data = requests.get(
             "endDate": today}).json()
 
 df = pd.DataFrame(icici_data)
-df.rename(columns={'x': 'date', 'y': 'price'})
+df = df.rename(columns={'x': 'date', 'y': 'price'})
 
 # Plot the figure
-icici_p = figure(x_axis_type="datetime", title="Stock Closing Prices")
+icici_p = figure(x_axis_type="datetime", title="ICICI Prudential Pension Fund")
 icici_p.grid.grid_line_alpha=0.3
 icici_p.xaxis.axis_label = 'Date'
 icici_p.yaxis.axis_label = 'Price'
