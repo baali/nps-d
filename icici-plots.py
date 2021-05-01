@@ -26,14 +26,13 @@ def get_prices(entry):
     return entry['y']
 
 dates_column = map(get_dates, icici_data)
-prices_column = map(get_dates, icici_data)
+prices_column = map(get_prices, icici_data)
 
 source = ColumnDataSource({'dates': list(dates_column),
                            'prices': list(prices_column)})
 # Plot the figure
 icici_p = figure(
     x_axis_type='datetime',
-    y_range=[0, 20],
     title='ICICI Prudential Pension Fund: Scheme:{}/Tier:{}'.format('C', 1),
     plot_height=200, plot_width=900,
     tools=['pan,reset,wheel_zoom'])
