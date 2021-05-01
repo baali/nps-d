@@ -33,6 +33,7 @@ source = ColumnDataSource({'dates': list(dates_column),
 # Plot the figure
 icici_p = figure(
     x_axis_type='datetime',
+    y_range=[0, 20],
     title='ICICI Prudential Pension Fund: Scheme:{}/Tier:{}'.format('C', 1),
     plot_height=200, plot_width=900,
     tools=['pan,reset,wheel_zoom'])
