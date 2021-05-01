@@ -31,7 +31,11 @@ prices_column = map(get_dates, icici_data)
 source = ColumnDataSource({'dates': list(dates_column),
                            'prices': list(prices_column)})
 # Plot the figure
-icici_p = figure(x_axis_type='datetime', title='ICICI Prudential Pension Fund', plot_height=200, plot_width=900, tools=['pan,reset,wheel_zoom'])
+icici_p = figure(
+    x_axis_type='datetime',
+    title='ICICI Prudential Pension Fund: Scheme:{}/Tier:{}'.format('C', 1),
+    plot_height=200, plot_width=900,
+    tools=['pan,reset,wheel_zoom'])
 icici_p.grid.grid_line_alpha=0.3
 icici_p.xaxis.axis_label = 'Date'
 icici_p.yaxis.axis_label = 'Price'
