@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 from datetime import date
 
+from bokeh.layouts import column
+from bokeh.palettes import all_palettes
 from bokeh.plotting import figure, output_file, save
 from bokeh.models import ColumnDataSource
 
@@ -26,21 +28,20 @@ def get_dates(entry):
 def get_prices(entry):
     return entry['y']
 
-
 SCHEMES = ['A', 'C', 'E', 'G']
+COLORS = all_palettes['Colorblind'][4]
 TIERS = [1, 2]
 
-icici_p = figure(
-    x_axis_type='datetime',
-    title='ICICI Prudential Pension Fund',
-    plot_height=200, plot_width=900,
-    tools=['pan,xbox_select,wheel_zoom,reset'])
-icici_p.grid.grid_line_alpha=0.3
-icici_p.xaxis.axis_label = 'Date'
-icici_p.yaxis.axis_label = 'Price'
-
-for tier in TIERS:
-    for scheme in SCHEMES:
+def plot_tier(tier):
+    t_plot = figure(
+        x_axis_type='datetime',
+        title='ICICI Prudential Pension Fund, Tier: {}'.format(tier),
+        plot_height=400, plot_width=900,
+        tools=['hover,pan,xbox_select,wheel_zoom,reset'])
+    t_plot.grid.grid_line_alpha=0.3
+    t_plot.xaxis.axis_label = 'Date'
+    t_plot.yaxis.axis_label = 'Price'
+    for (index, scheme) in enumerate(SCHEMES):
         fund_code = '{}{}'.format(scheme, tier)
         print('Fetching data for Tier: {} Scheme: {}'.format(tier, scheme))
         try:
@@ -52,8 +53,16 @@ for tier in TIERS:
             prices_column = map(get_prices, data)
             source = ColumnDataSource({'dates': list(dates_column),
                                        'prices': list(prices_column)})
-            icici_p.line(x='dates', y='prices', source=source)
+            t_plot.line(x='dates', y='prices',
+                        color=COLORS[index],
+                        source=source,
+                        legend_label='Scheme: {}'.format(scheme))
+            t_plot.legend.title = 'Tier: {}'.format(tier)
+            t_plot.legend.location = 'top_left'
+    return t_plot
+
+t_plots = list(map(plot_tier, TIERS))
 
 # Save to HTML
 output_file('docs/icici.html', title='ICICI Prudential Pension Fund')
-save(icici_p)
+save(column(children=t_plots))
