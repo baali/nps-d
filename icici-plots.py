@@ -62,6 +62,7 @@ def plot_tier(tier):
             t_plot.legend.title = 'Tier: {}'.format(tier)
             t_plot.legend.location = 'top_left'
             t_plot.hover.tooltips=[
+                ('Scheme', scheme),
                 ('price', '@prices'),
                 ('date', '@d_str')
             ]
