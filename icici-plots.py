@@ -37,7 +37,8 @@ def plot_tier(tier):
         x_axis_type='datetime',
         title='ICICI Prudential Pension Fund, Tier: {}'.format(tier),
         plot_height=400, plot_width=900,
-        tools=['hover,pan,xbox_select,wheel_zoom,reset'])
+        tools=['hover,pan,xbox_select,wheel_zoom,reset'],
+    )
     t_plot.grid.grid_line_alpha=0.3
     t_plot.xaxis.axis_label = 'Date'
     t_plot.yaxis.axis_label = 'Price'
@@ -52,13 +53,18 @@ def plot_tier(tier):
             dates_column = map(get_dates, data)
             prices_column = map(get_prices, data)
             source = ColumnDataSource({'dates': list(dates_column),
-                                       'prices': list(prices_column)})
+                                       'prices': list(prices_column),
+                                       'd_str': [entry['x'] for entry in data]})
             t_plot.line(x='dates', y='prices',
                         color=COLORS[index],
                         source=source,
                         legend_label='Scheme: {}'.format(scheme))
             t_plot.legend.title = 'Tier: {}'.format(tier)
             t_plot.legend.location = 'top_left'
+            t_plot.hover.tooltips=[
+                ('price', '@prices'),
+                ('date', '@d_str')
+            ]
     return t_plot
 
 t_plots = list(map(plot_tier, TIERS))
