@@ -2,9 +2,13 @@ name: github pages
 
 on:
   push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
+  schedule:
+    - cron: '0 8 * * Mon-Fri'
 
 jobs:
   deploy:
@@ -33,6 +37,9 @@ jobs:
 
       - name: Generate graph
         run: python nps-schemes-plot.py
+
+      - name: Generate ICICI graph
+        run: python icici-plots.py
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

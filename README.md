@@ -54,6 +54,8 @@ The dashboard would be available here: https://baali.github.io/nps-d/index.html
 
  [Calculator](https://www.iciciprupensionfund.com/NPS/#/calculators/nps-calculator)
 
+ [Dashboard](https://baali.github.io/nps-d/icici.html)
+
 ###  Aditya Birla
 
  [Site](https://pensionfund.adityabirlacapital.com/)
