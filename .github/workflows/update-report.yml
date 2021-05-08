@@ -41,6 +41,9 @@ jobs:
       - name: Generate ICICI graph
         run: python icici-plots.py
 
+      - name: Generate SBI graph
+        run: python sbi-plots.py
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

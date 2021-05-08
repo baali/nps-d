@@ -37,6 +37,7 @@ def update_data():
 
 def plot_tier(tier):
     data = pd.read_csv(SBI_DATA, sep='\t')
+    data['Date-fmt'] = data['Date'].apply(pd.to_datetime)
     t_plot = figure(
         x_axis_type='datetime',
         title='SBI Pension Fund, Tier: {}'.format(tier),
@@ -48,16 +49,15 @@ def plot_tier(tier):
     t_plot.yaxis.axis_label = 'Price'
     for (index, scheme) in enumerate(SCHEMES):
         fund_code = '{}{}'.format(scheme, tier)
-        t_plot.line(x='Date', y='{} Tier {}'.format(scheme, tier),
+        t_plot.line(x='Date-fmt', y='{} Tier {}'.format(scheme, tier),
                     color=COLORS[index],
                     source=ColumnDataSource(data),
                     legend_label='Scheme: {}'.format(scheme))
         t_plot.legend.title = 'Tier: {}'.format(tier)
         t_plot.legend.location = 'top_left'
         t_plot.hover.tooltips=[
-            ('Scheme', scheme),
-            # ('price', '@prices'),
-            ('date', 'Date')
+            ('price', '@{'+'{} Tier {}'.format(scheme, tier)+'}'),
+            ('date', '@Date')
         ]
     return t_plot
 
