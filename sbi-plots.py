@@ -37,6 +37,7 @@ def update_data():
 
 def plot_tier(tier):
     data = pd.read_csv(SBI_DATA, sep='\t')
+    data['Date'] = data['Date'].apply(pd.to_datetime)
     t_plot = figure(
         x_axis_type='datetime',
         title='SBI Pension Fund, Tier: {}'.format(tier),
