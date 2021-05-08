@@ -1,3 +1,4 @@
 pandas
 bokeh
 requests
+requests-html
